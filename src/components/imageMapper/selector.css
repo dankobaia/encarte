@@ -1,0 +1,12 @@
+.selector {
+  position: absolute;
+  border-radius: 15px;
+  border-block-color: rgba(130, 236, 130, 0.384);
+  border-style: dashed
+}
+
+.selector button{
+  float: right;
+  margin-right: 4px;
+  margin-top: 4px;
+}
