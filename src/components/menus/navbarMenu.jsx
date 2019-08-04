@@ -11,10 +11,9 @@ export class NavbarMenu extends React.Component {
     console.log(this.props.auth);
     return (
       <Navbar bg="dark" variant="dark" id="encarte-menu">
-        <Navbar.Brand href="#">Encarte</Navbar.Brand>
+        <Navbar.Brand href="/home">Encarte</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#">Home</Nav.Link>
-          <Nav.Link href="#">Encarte Map</Nav.Link>
+          <Nav.Link href="/home">Home</Nav.Link>
           {this.props.auth && this.props.auth.admin && (
             <>
               <Nav.Link href="/encarte/upload">Encarte Upload</Nav.Link>

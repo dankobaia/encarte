@@ -2,29 +2,34 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Card } from "react-bootstrap";
-import { PagingState, IntegratedPaging } from "@devexpress/dx-react-grid";
+import {
+  PagingState,
+  IntegratedPaging,
+  SortingState,
+  IntegratedSorting
+} from "@devexpress/dx-react-grid";
 import {
   Grid,
   Table,
   TableColumnResizing,
   TableHeaderRow,
-  PagingPanel
+  PagingPanel,
 } from "@devexpress/dx-react-grid-bootstrap4";
 
-import { getUsers, removeError } from "../../store/ducks/listUsers";
-import { editUser } from "../../store/ducks/createUser";
+import { GetEncartes } from "../../store/ducks/listEncartes";
 
 import { Loading } from "../";
 
 const initial = {
   columns: [
-    { name: "name", title: "Name" },
-    { name: "email", title: "Email" },
-    { name: "document", title: "Document" },
+    { name: "brand_id", title: "Brand" },
+    { name: "start_date", title: "Start Date" },
+    { name: "end_date", title: "End Date" },
+    { name: "state", title: "State" },
     { name: "edit", title: "Edit" }
   ]
 };
-class UserDataGrid extends React.Component {
+class EncartDataGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,17 +42,17 @@ class UserDataGrid extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getUsers();
+    this.props.GetEncartes();
   }
 
-  getUserList = () => {
-    if (!this.props.users) return [];
-    return this.props.users.userlist.map(i => ({
+  getEncartList = () => {
+    if (!this.props.listEncartes) return [];
+    return this.props.listEncartes.encartes.map(i => ({
       ...i,
       edit: (
         <span
           className="oi oi-pencil btn btn-info"
-          onClick={() => this.props.editUser(i)}
+          onClick={() => alert("MODARATE Id:" + i.id)}
         />
       ),
       remove: <span className="oi oi-pencil btn btn-danger" />
@@ -55,22 +60,24 @@ class UserDataGrid extends React.Component {
   };
 
   render() {
-    let { users } = this.props;
-    const userList = this.getUserList();
+    let { listEncartes } = this.props;
     const { columns, columnsSize } = this.state;
+    const list = this.getEncartList();
     return (
-      <Loading active={users && users.loading} spinner>
+      <Loading active={listEncartes && listEncartes.loading} spinner>
         <Card>
           <Card.Header>
-            <h4>Users</h4>
+            <h4>Encartes</h4>
           </Card.Header>
           <Card.Body>
-            <Grid rows={userList} columns={columns}>
+            <Grid rows={list} columns={columns}>
               <PagingState defaultCurrentPage={0} pageSize={6} />
+              <SortingState />
               <IntegratedPaging />
+              <IntegratedSorting />
               <Table />
               <TableColumnResizing defaultColumnWidths={columnsSize} />
-              <TableHeaderRow />
+              <TableHeaderRow showSortingControls />
               <PagingPanel />
             </Grid>
           </Card.Body>
@@ -81,15 +88,15 @@ class UserDataGrid extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.users
+  listEncartes: state.listEncartes
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ getUsers, removeError, editUser }, dispatch);
+  bindActionCreators({ GetEncartes }, dispatch);
 
-const UserGrid = connect(
+const EncartGrid = connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserDataGrid);
+)(EncartDataGrid);
 
-export { UserGrid };
+export { EncartGrid };

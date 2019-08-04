@@ -18,6 +18,7 @@ const App = () => (
           <Route path="/" exact component={Pages.LoginPage} />
           <Route path="/user/create" exact component={Pages.CreateUserPage} />
           <Route path="/encarte/upload" exact component={Pages.EncarteUpload} />
+          <Route path="/home" exact component={Pages.Home} />
         </Switch>
       </Router>
     </PersistGate>

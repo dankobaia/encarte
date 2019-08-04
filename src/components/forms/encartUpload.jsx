@@ -5,35 +5,20 @@ import { Col, Row, Form, Button, Card, Image } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import Select, { components } from "react-select";
 import { ErrorModal, SuccessModal, Loading } from "../";
+import FileBase64 from "react-file-base64";
 import {
   uploadEncarte,
   removeError,
   removeSuccess
 } from "../../store/ducks/uploadEncarte";
-import FileBase64 from "react-file-base64";
+
+import { options } from "../../api/encarte";
 
 const INITIAL_STATE = {
   base64: "",
   selectedOption: null
 };
 
-const options = [
-  {
-    value: "id_guanabara",
-    label: "Guanabara",
-    thumb: "https://via.placeholder.com/300x300"
-  },
-  {
-    value: "id_extra",
-    label: "Extra",
-    thumb: "https://via.placeholder.com/300x300"
-  },
-  {
-    value: "id_sm",
-    label: "Super Market",
-    thumb: "https://via.placeholder.com/300x300"
-  }
-];
 
 const Option = props => {
   const { data } = props;

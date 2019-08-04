@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Form, Button, Card } from "react-bootstrap";
 import { push } from "connected-react-router";
-import { login, removeError } from "../../store/ducks/auth";
+import { login, removeError, logout } from "../../store/ducks/auth";
 import { ErrorModal, Loading } from "../";
 
 import { ChangeValue } from "./utils";
@@ -16,15 +16,14 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = initial;
-  }
-
-  componentDidUpdate(){
     this.redirect();
   }
 
+  componentDidUpdate() {
+  }
+
   redirect = () => {
-    if (this.props.auth && this.props.auth.user)
-      this.props.push("/user/create");
+    if (this.props.auth && this.props.auth.user) this.props.push("/home");
   };
 
   render() {
@@ -86,11 +85,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ login, removeError, push }, dispatch);
+  bindActionCreators({ login, removeError, push, logout }, dispatch);
 
 const LoginForm = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Login);
 
-export { LoginForm  };
+export { LoginForm };
